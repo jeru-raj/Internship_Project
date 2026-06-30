@@ -1,0 +1,545 @@
+{# Copyright (c) 2026 ARCASCEND DIGITECH PRIVATE LIMITED. All rights reserved. #}
+{# This file is part of the Donor Report Automation System (DRAS) project. #}
+{# Author: Jerusha Caroline Raj A | Created: 2026-06-30 #}
+{# Description: Dashboard home page template displaying summary counts #}
+{# of total donors, field workers, and sponsor reports. #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRAS Dashboard</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-mark">DR</div>
+
+            <div class="sidebar-brand-text">
+                DRAS
+                <small>Report Automation</small>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <div class="sidebar-section-label">
+                Overview
+            </div>
+
+            <a href="/" class="nav-item is-active">
+
+                <span class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>
+                    </svg>
+                </span>
+
+                <span class="nav-item-label">
+                    Dashboard
+                </span>
+
+            </a>
+
+            <div class="sidebar-section-label">
+                Manage
+            </div>
+
+            <a href="/donor" class="nav-item">
+
+                <span class="nav-item-icon">
+                    <svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="3.5"/>
+                        <path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/>
+                    </svg>
+                </span>
+
+                <span class="nav-item-label">
+                    Add Donor
+                </span>
+
+            </a>
+
+            <!-- CHANGED -->
+            <a href="/fieldworker" class="nav-item">
+
+                <span class="nav-item-icon">
+                    <svg viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3v4M12 3 9 6M12 3l3 3"/>
+                        <circle cx="12" cy="13" r="3.2"/>
+                        <path d="M6 21c0-2.8 2.7-5 6-5s6 2.2 6 5"/>
+                    </svg>
+                </span>
+
+                <span class="nav-item-label">
+                    Add Field Worker
+                </span>
+
+            </a>
+
+            <div class="sidebar-section-label">
+                Reports
+            </div>
+
+            <a href="/upload" class="nav-item">
+
+                <span class="nav-item-icon">
+                    <svg viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 16V4M12 4 8 8M12 4l4 4"/>
+                        <path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>
+                    </svg>
+                </span>
+
+                <span class="nav-item-label">
+                    Upload Report
+                </span>
+
+            </a>
+
+            <a href="/history" class="nav-item">
+
+                <span class="nav-item-icon">
+                    <svg viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M4 5h16M4 12h16M4 19h10"/>
+                    </svg>
+                </span>
+
+                <span class="nav-item-label">
+                    Report History
+                </span>
+
+            </a>
+
+        </nav>
+
+        <div class="sidebar-foot">
+
+            <button class="sidebar-collapse-btn"
+                    id="collapseBtn"
+                    type="button">
+
+                <svg viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                    <path d="M15 5 8 12l7 7"/>
+
+                </svg>
+
+                <span class="nav-item-label">
+                    Collapse
+                </span>
+
+            </button>
+
+        </div>
+
+    </aside>
+    <div class="main-col">
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <button class="topbar-menu-btn"
+                    id="mobileMenuBtn"
+                    type="button"
+                    aria-label="Open menu">
+
+                <svg viewBox="0 0 24 24"
+                     width="20"
+                     height="20"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round">
+
+                    <path d="M4 6h16M4 12h16M4 18h16"/>
+
+                </svg>
+
+            </button>
+
+            <div class="topbar-crumb">
+                DRAS / <strong>Dashboard</strong>
+            </div>
+
+        </div>
+
+        <div class="topbar-right">
+
+            <div class="topbar-pill">
+                <span class="topbar-pill-dot"></span>
+                <span>System Online</span>
+            </div>
+
+            <div class="topbar-avatar">
+                A
+            </div>
+
+        </div>
+
+    </header>
+
+    <main class="page">
+
+        <div class="page-head fade-up">
+
+            <div class="page-head-eyebrow">
+                Overview
+            </div>
+
+            <h1>
+                Welcome back
+            </h1>
+
+            <p>
+                Here's a snapshot of your donors, field workers, and sponsor report activity.
+            </p>
+
+        </div>
+
+        <div class="stat-grid">
+
+            <!-- DONORS -->
+
+            <div class="stat-card is-blue fade-up" style="animation-delay:40ms">
+
+                <div class="stat-card-top">
+
+                    <div>
+                        <div class="stat-card-label">
+                            Total Donors
+                        </div>
+                    </div>
+
+                    <div class="stat-card-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+
+                            <circle cx="12" cy="8" r="3.5"/>
+                            <path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/>
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card-value">
+                    {{ total_donors }}
+                </div>
+
+                <div class="stat-card-bottom">
+
+                    <span class="stat-card-trend">
+                        Active sponsors
+                    </span>
+
+                    <span class="stat-card-rhythm">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- FIELD WORKERS -->
+
+            <div class="stat-card is-navy fade-up" style="animation-delay:90ms">
+
+                <div class="stat-card-top">
+
+                    <div>
+
+                        <div class="stat-card-label">
+                            Total Field Workers
+                        </div>
+
+                    </div>
+
+                    <div class="stat-card-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+
+                            <path d="M12 3v4M12 3 9 6M12 3l3 3"/>
+                            <circle cx="12" cy="13" r="3.2"/>
+                            <path d="M6 21c0-2.8 2.7-5 6-5s6 2.2 6 5"/>
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card-value">
+                    {{ total_fieldworkers }}
+                </div>
+
+                <div class="stat-card-bottom">
+
+                    <span class="stat-card-trend"
+                          style="color:var(--navy-800)">
+                        Currently serving
+                    </span>
+
+                    <span class="stat-card-rhythm">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- REPORTS -->
+
+            <div class="stat-card is-green fade-up"
+                 style="animation-delay:140ms">
+
+                <div class="stat-card-top">
+
+                    <div>
+
+                        <div class="stat-card-label">
+                            Reports Uploaded
+                        </div>
+
+                    </div>
+
+                    <div class="stat-card-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+
+                            <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/>
+                            <path d="M14 3v5h5"/>
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card-value">
+                    {{ total_reports }}
+                </div>
+
+                <div class="stat-card-bottom">
+
+                    <span class="stat-card-trend">
+                        Sent to sponsors
+                    </span>
+
+                    <span class="stat-card-rhythm">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="section-label">
+            Quick Actions
+        </div>
+
+        <div class="quick-actions">
+                      <!-- Add Donor -->
+
+            <a href="/donor"
+               class="quick-action fade-up"
+               style="animation-delay:180ms">
+
+                <div class="quick-action-icon">
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <circle cx="12" cy="8" r="3.5"/>
+                        <path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/>
+
+                    </svg>
+                </div>
+
+                <div class="quick-action-title">
+                    Add Donor
+                </div>
+
+                <div class="quick-action-desc">
+                    Register a new donor's name and email address.
+                </div>
+
+            </a>
+
+
+            <!-- Add Field Worker -->
+
+            <a href="/fieldworker"
+               class="quick-action fade-up"
+               style="animation-delay:220ms">
+
+                <div class="quick-action-icon">
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M12 3v4M12 3 9 6M12 3l3 3"/>
+                        <circle cx="12" cy="13" r="3.2"/>
+                        <path d="M6 21c0-2.8 2.7-5 6-5s6 2.2 6 5"/>
+
+                    </svg>
+                </div>
+
+                <div class="quick-action-title">
+                    Add Field Worker
+                </div>
+
+                <div class="quick-action-desc">
+                    Add a new field worker to the program.
+                </div>
+
+            </a>
+
+
+            <!-- Upload -->
+
+            <a href="/upload"
+               class="quick-action fade-up"
+               style="animation-delay:260ms">
+
+                <div class="quick-action-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M12 16V4M12 4 8 8M12 4l4 4"/>
+                        <path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>
+
+                    </svg>
+
+                </div>
+
+                <div class="quick-action-title">
+                    Upload Report
+                </div>
+
+                <div class="quick-action-desc">
+                    Drag and drop a sponsor report file.
+                </div>
+
+            </a>
+
+
+            <!-- History -->
+
+            <a href="/history"
+               class="quick-action fade-up"
+               style="animation-delay:300ms">
+
+                <div class="quick-action-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M4 5h16M4 12h16M4 19h10"/>
+
+                    </svg>
+
+                </div>
+
+                <div class="quick-action-title">
+                    Report History
+                </div>
+
+                <div class="quick-action-desc">
+                    Review past uploads and email status.
+                </div>
+
+            </a>
+
+        </div>
+
+    </main>
+
+</div>
+
+</div>
+
+<script src="{% static 'script.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+{# Copyright (c) 2026 ARCASCEND DIGITECH PRIVATE LIMITED. All rights reserved. #}
+{# This file is part of the Donor Report Automation System (DRAS) project. #}
+{# Author: Jerusha Caroline Raj A | Created: 2026-06-30 #}
+{# Description: Sponsor report history page template, displaying the #}
+{# full upload and email-delivery history for all sponsor reports. #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report History — DRAS</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-mark">DR</div>
+      <div class="sidebar-brand-text">
+        DRAS
+        <small>Report Automation</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Overview</div>
+
+      <a href="/" class="nav-item ">
+        <span class="nav-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>
+        </span>
+        <span class="nav-item-label">Dashboard</span>
+      </a>
+
+      <div class="sidebar-section-label">Manage</div>
+
+      <a href="/donor" class="nav-item ">
+        <span class="nav-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg>
+        </span>
+        <span class="nav-item-label">Add Donor</span>
+      </a>
+
+      <a href="/fieldworker" class="nav-item ">
+    <span class="nav-item-icon">
+        <svg viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round">
+            <circle cx="12" cy="8" r="3.5"/>
+            <path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/>
+        </svg>
+    </span>
+
+    <span class="nav-item-label">
+        Add Field Worker
+    </span>
+</a>
+
+      <div class="sidebar-section-label">Reports</div>
+
+      <a href="/upload" class="nav-item ">
+        <span class="nav-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 4 8 8M12 4l4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+        </span>
+        <span class="nav-item-label">Upload Report</span>
+      </a>
+
+      <a href="/history" class="nav-item is-active">
+        <span class="nav-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/></svg>
+        </span>
+        <span class="nav-item-label">Report History</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <button class="sidebar-collapse-btn" id="collapseBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+        <span class="nav-item-label">Collapse</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-col">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="topbar-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="topbar-crumb">DRAS / <strong>Report History</strong></div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-pill">
+          <span class="topbar-pill-dot"></span>
+          <span>System Online</span>
+        </div>
+        <div class="topbar-avatar">A</div>
+      </div>
+    </header>
+
+    <main class="page">
+
+
+  <div class="page-head fade-up">
+    <div class="page-head-eyebrow">Sponsor Reports</div>
+    <h1>Report History</h1>
+    <p>Browse every sponsor report that has been uploaded and track its email status.</p>
+  </div>
+
+  <div class="card fade-up" style="animation-delay:60ms">
+
+    <div class="table-toolbar">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input class="search-input" type="text" id="historySearch" placeholder="Search by file name, month, or year…">
+      </div>
+      <div class="table-count" id="resultCount">
+
+{% if reports %}
+
+<strong>{{ reports|length }}</strong>
+
+report{% if reports|length != 1 %}s{% endif %}
+
+{% else %}
+
+<strong>0</strong> reports
+
+{% endif %}
+
+</div>
+    </div>
+
+    {% if reports %}
+    <div class="table-scroll">
+      <table class="data-table" id="historyTable">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>Email Status</th>
+            <th>Sent Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for report in reports %}
+          <tr>
+            <td>
+              <div class="file-cell">
+                <span class="file-cell-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+                </span>
+                {{ report.report_file_name }}
+              </div>
+            </td>
+            <td>{{ report.report_month }}</td>
+            <td>{{ report.report_year }}</td>
+            <td>
+
+<span class="status-badge is-sent">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2.5"
+stroke-linecap="round"
+stroke-linejoin="round">
+
+<path d="m5 13 4 4L19 7"/>
+
+</svg>
+
+{{ report.email_status|default:"Sent" }}
+
+</span>
+
+</td>
+            <td>{{ report.sent_date }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer">
+      <div class="table-count">Showing all matching reports</div>
+      <div class="pagination">
+        <button class="page-btn" disabled aria-label="Previous page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button class="page-btn is-active">1</button>
+        <button class="page-btn" disabled aria-label="Next page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+      </div>
+      <div class="empty-state-title">No reports yet</div>
+      <div class="empty-state-sub">Uploaded sponsor reports will appear here.</div>
+    </div>
+    {% endif %}
+
+  </div>
+
+    </main>
+  </div>
+
+</div>
+
+<script src="{% static 'script.js' %}"></script>
+
+
+<script>
+  (function () {
+    var searchInput = document.getElementById("historySearch");
+    var table = document.getElementById("historyTable");
+    if (!searchInput || !table) return;
+
+    var rows = Array.prototype.slice.call(table.querySelectorAll("tbody tr"));
+    var resultCount = document.getElementById("resultCount");
+
+    searchInput.addEventListener("input", function () {
+      var q = searchInput.value.trim().toLowerCase();
+      var visible = 0;
+
+      rows.forEach(function (row) {
+        var matches = row.textContent.toLowerCase().indexOf(q) !== -1;
+        row.style.display = matches ? "" : "none";
+        if (matches) visible += 1;
+      });
+
+      resultCount.innerHTML =
+        "<strong>" + visible + "</strong> report" + (visible === 1 ? "" : "s");
+    });
+  })();
+</script>
+
+</body>
+</html>
